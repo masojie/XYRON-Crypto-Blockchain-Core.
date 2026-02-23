@@ -2,27 +2,32 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYRON Wallet</title>
     <style>
-        body { background: #050505; color: #fff; font-family: sans-serif; text-align: center; }
-        .wallet-card { border: 2px solid #00ffff; border-radius: 20px; padding: 30px; margin: 20px; }
-        .btn-mine { background: #00ffff; color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 10px; }
+        body { background: #0a0a0a; color: white; font-family: sans-serif; text-align: center; }
+        .card { border: 1px solid #00ffff; border-radius: 25px; padding: 30px; margin: 20px auto; max-width: 350px; background: #111; }
+        .balance { font-size: 2.5em; color: #00ffff; margin: 15px 0; font-weight: bold; }
+        .btn { background: #00ffff; color: black; padding: 15px; border-radius: 10px; border: none; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="wallet-card">
-        <h2>XYRON CORE WALLET</h2>
-        <div style="font-size: 2em; margin: 20px;"><span id="niz-bal">0.00</span> niZ</div>
-        <button class="btn-mine" onclick="startMining()">START X11-NANO MINING</button>
+    <div class="card">
+        <h3>XYRON CORE WALLET</h3>
+        <p style="font-size: 0.8em; opacity: 0.5;">0x777...NIZAM...BLITAR</p>
+        <div class="balance"><span id="niz">0.00000000</span> <small style="font-size: 0.4em;">niZ</small></div>
+        <button class="btn" onclick="mine()">ACTIVATE X11-NANO MINER</button>
+        <p style="font-size: 0.6em; margin-top: 15px;">Standard: 0.2137% Adaptive Burn Enabled</p>
     </div>
+
     <script>
         let balance = 0;
-        function startMining() {
+        function mine() {
             setInterval(() => {
                 balance += 0.00002137;
-                document.getElementById('niz-bal').innerText = balance.toFixed(8);
+                document.getElementById('niz').innerText = balance.toFixed(8);
             }, 1000);
+            alert("X11-Nano Mining Started!");
         }
     </script>
 </body>
 </html>
-
