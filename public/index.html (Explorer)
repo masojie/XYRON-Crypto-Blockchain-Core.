@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>XYRON Explorer</title>
     <style>
-        body { background: #000; color: #00ffff; font-family: 'Courier New', monospace; text-align: center; }
-        .wow-text { text-shadow: 0 0 10px #00ffff; font-size: 1.5em; margin-top: 20%; }
-        .sub { color: #555; font-size: 0.8em; }
+        body { background: #000; color: #00ffff; font-family: 'Courier New', monospace; text-align: center; padding: 40px; }
+        .monitor { border: 2px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 20px #00ffff; display: inline-block; }
+        h1 { text-shadow: 0 0 10px #00ffff; letter-spacing: 5px; }
+        .status { color: #00ff00; }
     </style>
 </head>
 <body>
-    <div class="wow-text">XYRON: NEXUS-PARALLEL ACTIVE</div>
-    <p>Architect: M. Fauzi Nizam</p>
-    <div class="sub">Genesis Block Initialized in Blitar, Indonesia</div>
+    <div class="monitor">
+        <h1>XYRON CORE</h1>
+        <p>Architect: M. Fauzi Nizam | Origin: Blitar</p>
+        <hr border="1" color="#00ffff">
+        <p class="status">STATUS: NEXUS-PARALLEL FLOW ACTIVE</p>
+        <div id="genesis-msg">Loading Manifesto...</div>
+    </div>
+
+    <script>
+        fetch('/api/genesis')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('genesis-msg').innerText = data.message;
+            });
+    </script>
 </body>
 </html>
-
