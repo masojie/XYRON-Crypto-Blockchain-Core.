@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { background: #050505; color: #fff; font-family: sans-serif; text-align: center; }
+        .wallet-card { border: 2px solid #00ffff; border-radius: 20px; padding: 30px; margin: 20px; }
+        .btn-mine { background: #00ffff; color: #000; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="wallet-card">
+        <h2>XYRON CORE WALLET</h2>
+        <div style="font-size: 2em; margin: 20px;"><span id="niz-bal">0.00</span> niZ</div>
+        <button class="btn-mine" onclick="startMining()">START X11-NANO MINING</button>
+    </div>
+    <script>
+        let balance = 0;
+        function startMining() {
+            setInterval(() => {
+                balance += 0.00002137;
+                document.getElementById('niz-bal').innerText = balance.toFixed(8);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
