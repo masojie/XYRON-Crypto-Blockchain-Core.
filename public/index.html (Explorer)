@@ -1,30 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>XYRON Explorer</title>
+    <title>XYRON EXPLORER - NIZAM TECH</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { background: #000; color: #00ffff; font-family: 'Courier New', monospace; text-align: center; padding: 40px; }
-        .monitor { border: 2px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 20px #00ffff; display: inline-block; }
-        h1 { text-shadow: 0 0 10px #00ffff; letter-spacing: 5px; }
-        .status { color: #00ff00; }
+        body { background: #050505; color: #00ffcc; font-family: 'Courier New', monospace; padding: 20px; }
+        .header { border-bottom: 2px solid #00ffcc; padding-bottom: 10px; text-shadow: 0 0 5px #00ffcc; }
+        .stats { display: flex; gap: 20px; margin: 20px 0; font-weight: bold; }
+        .block-card { border: 1px solid #333; background: #111; padding: 15px; margin-bottom: 15px; border-left: 5px solid #00ffcc; transition: 0.3s; }
+        .block-card:hover { box-shadow: 0 0 15px rgba(0,255,204,0.3); }
+        .burn { color: #ff0055; font-weight: bold; }
+        .mode-tag { font-size: 0.8em; background: #222; padding: 2px 8px; border-radius: 3px; color: #fff; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .live-icon { color: #00ffcc; animation: pulse 1s infinite; }
     </style>
 </head>
 <body>
-    <div class="monitor">
-        <h1>XYRON CORE</h1>
-        <p>Architect: M. Fauzi Nizam | Origin: Blitar</p>
-        <hr border="1" color="#00ffff">
-        <p class="status">STATUS: NEXUS-PARALLEL FLOW ACTIVE</p>
-        <div id="genesis-msg">Loading Manifesto...</div>
+    <div class="header">
+        <h1>XYRON NETWORK <span class="live-icon">●</span></h1>
+        <small>FIRST MOBILE-OPTIMIZED BLOCKCHAIN BY M. FAUZI NIZAM</small>
     </div>
 
+    <div class="stats">
+        <div>BLOCKS: <span id="bCount">0</span></div>
+        <div>ALGO: X11-NANO (ADAPTIVE)</div>
+    </div>
+
+    <h3>LIVE ACTIVITY LOG</h3>
+    <div id="feed"></div>
+
     <script>
-        fetch('/api/genesis')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('genesis-msg').innerText = data.message;
-            });
+        async function updateExplorer() {
+            try {
+                const res = await fetch('/api/chain');
+                const chain = await res.json();
+                document.getElementById('bCount').innerText = chain.length;
+                
+                const feed = document.getElementById('feed');
+                feed.innerHTML = '';
+                chain.reverse().forEach(block => {
+                    const div = document.createElement('div');
+                    div.className = 'block-card';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between">
+                            <strong>BLOCK #${block.index}</strong>
+                            <span class="mode-tag">${block.data.mode || 'GENESIS'}</span>
+                        </div>
+                        <div style="font-size: 11px; color: #666; margin: 5px 0;">HASH: ${block.hash}</div>
+                        <div>VALUE: ${block.data.amount || 0} XYR | <span class="burn">🔥 BURN: ${block.data.burned || 0}</span></div>
+                        <div style="font-size: 10px; text-align: right; color: #444;">${block.timestamp}</div>
+                    `;
+                    feed.appendChild(div);
+                });
+            } catch (e) { console.log("Syncing..."); }
+        }
+        setInterval(updateExplorer, 2000);
+        updateExplorer();
     </script>
 </body>
 </html>
