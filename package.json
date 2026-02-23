@@ -1,12 +1,12 @@
 {
-  "name": "xyron-core",
+  "name": "xyron-crypto-core",
   "version": "1.0.0",
+  "description": "XYRON Blockchain Core Engine by M. Fauzi Nizam",
   "main": "server.js",
-  "dependencies": {
-    "express": "^4.18.2"
-  },
   "scripts": {
     "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
-
